@@ -1,0 +1,12 @@
+.zzz{
+    width: 220px !important;
+    height: 260px !important;
+    object-fit: fill !important;
+    border-radius: 10px;
+}
+
+.bestzzz{
+    width: 340px !important;
+
+    max-height: none !important;
+}
