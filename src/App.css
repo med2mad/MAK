@@ -10,3 +10,39 @@
 
     max-height: none !important;
 }
+  .form-label.required:after {
+    content: " *";
+    color: red;
+  }
+
+  .status-badge {
+  transition: all 0.3s ease;
+}
+
+.status-badge.pending {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.status-badge.completed {
+  background-color: rgb(76, 175, 80);;
+  color: white;
+}
+
+.status-badge.cancelled {
+  background-color: #dc3545;
+  color: white;
+}
+
+select.status-select {
+  border: none;
+  border-radius: 4px;
+  padding: 2px 8px;
+  cursor: pointer;
+  appearance: none;
+}
+
+.btn-outline-secondary:hover{
+  color:white !important;
+}
+

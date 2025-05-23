@@ -1,8 +1,17 @@
 import { useEffect, useState } from 'react';
 import Nav from './Nav';
 import Products from './Products';
+import Footer from './Footer';
 
 function Home() {
+    const [customerInfo, setCustomerInfo] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    coupon_code: ''
+  });
+
   const [products, setProducts] = useState([]);
   useEffect(() => {
     fetch('http://localhost:8000/') 
@@ -60,8 +69,23 @@ const updateCartItemQuantity = (id, newQuantity) => {
   );
 };
 
+const handleCustomerInfoChange = (e) => {
+  const { name, value } = e.target;
+  setCustomerInfo(prev => ({
+    ...prev,
+    [name]: value
+  }));
+};
+
 const submitOrder = () => {
+  // Validate required fields
+  if (!customerInfo.name || !customerInfo.phone) {
+    alert('Please fill in all required fields (Name and Phone)');
+    return;
+  }
+
   const orderData = {
+    ...customerInfo, // Include all customer info
     products: cartItems.map(item => ({
       id: item.id,
       quantity: item.quantity
@@ -87,7 +111,15 @@ const submitOrder = () => {
   })
   .then(data => {
     alert('Order submitted successfully!');
-    setCartItems([]); // Clear the cart after successful submission
+    setCartItems([]);
+    // Reset customer info
+    setCustomerInfo({
+      name: '',
+      email: '',
+      phone: '',
+      address: '',
+      coupon_code: ''
+    });
   })
   .catch(error => {
     console.error('Error:', error);
@@ -160,23 +192,93 @@ const submitOrder = () => {
             ))}
             <li className="list-group-item d-flex justify-content-end">
               <span>Total :&nbsp;</span>
-              <strong>
-                {cartItems.reduce(
-                  (sum, product) => sum + Number(product.price) * product.quantity, 0
-                ).toFixed(2)} DH
-              </strong>
+              <strong>{cartItems.reduce((sum, product)=> sum + Number(product.price) * product.quantity, 0).toFixed(2)} DH</strong>
             </li>
           </ul>
 
-          <button 
-            onClick={submitOrder} 
-            className="w-100 btn btn-primary btn-lg" 
-            type="submit"
-            disabled={cartItems.length === 0}
-          >
-            Submit Order
-          </button>
+<button 
+  onClick={submitOrder} 
+  className="w-100 btn btn-primary btn-lg" 
+  type="submit"
+  disabled={cartItems.length === 0 || !customerInfo.name || !customerInfo.phone}
+>
+  Submit Order
+</button>
         </div>
+
+
+
+
+
+
+
+         <div className="mb-3">
+      <h5 className="mb-3">Customer Information</h5>
+      <div className="mb-3">
+        <label htmlFor="name" className="form-label required">Full Name</label>
+        <input
+          type="text"
+          className="form-control"
+          id="name"
+          name="name"
+          value={customerInfo.name}
+          onChange={handleCustomerInfoChange}
+          required
+        />
+      </div>
+      <div className="mb-3">
+        <label htmlFor="phone" className="form-label required">Phone Number</label>
+        <input
+          type="tel"
+          className="form-control"
+          id="phone"
+          name="phone"
+          value={customerInfo.phone}
+          onChange={handleCustomerInfoChange}
+          required
+        />
+      </div>
+      <div className="mb-3">
+        <label htmlFor="email" className="form-label">Email</label>
+        <input
+          type="email"
+          className="form-control"
+          id="email"
+          name="email"
+          value={customerInfo.email}
+          onChange={handleCustomerInfoChange}
+        />
+      </div>
+      <div className="mb-3">
+        <label htmlFor="address" className="form-label">Address</label>
+        <textarea
+          className="form-control"
+          id="address"
+          name="address"
+          value={customerInfo.address}
+          onChange={handleCustomerInfoChange}
+          rows="2"
+        ></textarea>
+      </div>
+      <div className="mb-3">
+        <label htmlFor="coupon_code" className="form-label">Coupon Code</label>
+        <input
+          type="text"
+          className="form-control"
+          id="coupon_code"
+          name="coupon_code"
+          value={customerInfo.coupon_code}
+          onChange={handleCustomerInfoChange}
+        />
+      </div>
+    </div>
+
+
+
+
+
+
+
       </div>
     </div>
     
@@ -520,7 +622,8 @@ const submitOrder = () => {
         
       </div>
     </section>
-
+    
+    <Footer/>
     </>
   )
 }

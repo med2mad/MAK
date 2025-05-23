@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 
 function Nav() {
 
@@ -35,6 +36,9 @@ function Nav() {
             </li>
             <li className="nav-item">
                 <a href="#blog" className="nav-link">Articles</a>
+            </li>
+            <li className="nav-item">
+                <a href="/dashboard/orders" className="nav-link">Dashboard</a>
             </li>
         </ul>
     </>
