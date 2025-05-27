@@ -370,8 +370,8 @@ const submitOrder = () => {
                       <div className="row banner-content p-5">
                         <div className="content-wrapper col-md-7">
                           <div className="categories my-3">100% natural</div>
-                          <h3 className="display-4">Fresh Smoothie & Summer Juice</h3>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dignissim massa diam elementum.</p>
+                          <h3 className="display-4">Discover Moroccan Argan Oil with "KATY"</h3>
+                          <p>In the argan oil production process there are no additives or shortcuts. All hand made and natural.</p>
                           <a href="#" className="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1 px-4 py-3 mt-3">Shop Now</a>
                         </div>
                         <div className="img-wrapper col-md-5">
@@ -389,8 +389,8 @@ const submitOrder = () => {
               <div className="banner-ad bg-success-subtle block-2" style={{background:"url('images/ad-image-1.png') no-repeat", backgroundPosition: 'right bottom'}}>
                 <div className="row banner-content p-5">
                   <div className="content-wrapper col-md-7">
-                    <div className="categories sale mb-3 pb-3">20% off</div>
-                    <h3 className="banner-title">Fruits & Vegetables</h3>
+                    <div className="categories sale mb-3 pb-3">15% off</div>
+                    <h3 className="banner-title">Food and beauty</h3>
                     <a href="#" className="d-flex align-items-center nav-link">Shop Collection <svg width="24" height="24"><use xlinkHref="#arrow-right"></use></svg></a>
                   </div>
                 </div>
@@ -399,8 +399,8 @@ const submitOrder = () => {
               <div className="banner-ad bg-danger block-3" style={{background:"url('images/ad-image-2.png') no-repeat", backgroundPosition: 'right bottom'}}>
                 <div className="row banner-content p-5">
                   <div className="content-wrapper col-md-7">
-                    <div className="categories sale mb-3 pb-3">15% off</div>
-                    <h3 className="item-title">Baked Products</h3>
+                    <div className="categories sale mb-3 pb-3">10% off</div>
+                    <h3 className="item-title">Baked & clean<br/>products</h3>
                     <a href="#" className="d-flex align-items-center nav-link">Shop Collection <svg width="24" height="24"><use xlinkHref="#arrow-right"></use></svg></a>
                   </div>
                 </div>
@@ -461,8 +461,8 @@ const submitOrder = () => {
             <div className="banner-ad bg-danger mb-3" style={{background: "url('images/ad-image-3.png')", backgroundRepeat: 'no-repeat', backgroundPosition: 'right'}}>
               <div className="banner-content p-5">
                 <div className="categories text-primary fs-3 fw-bold">Upto 25% Off</div>
-                <h3 className="banner-title">Luxa Dark Chocolate</h3>
-                <p>Very tasty & creamy vanilla flavour creamy muffins.</p>
+                <h3 className="banner-title">Honey</h3>
+                <p>Very tasty, from our cozy garden</p>
                 <a href="#" className="btn btn-dark text-uppercase">Show Now</a>
               </div>
             </div>
@@ -472,8 +472,8 @@ const submitOrder = () => {
             <div className="banner-ad bg-info" style={{background: "url('images/ad-image-4.png')", backgroundRepeat: 'no-repeat', backgroundPosition: 'right'}}>
               <div className="banner-content p-5">
                 <div className="categories text-primary fs-3 fw-bold">Upto 25% Off</div>
-                <h3 className="banner-title">Creamy Muffins</h3>
-                <p>Very tasty & creamy vanilla flavour creamy muffins.</p>
+                <h3 className="banner-title">100% Organic</h3>
+                <p>From a farm, with natural ingredients only</p>
                 <a href="#" className="btn btn-dark text-uppercase">Show Now</a>
               </div>
             </div>
@@ -546,9 +546,10 @@ const submitOrder = () => {
                 </div>
                 <div className="post-header">
                   <h3 className="post-title">
-                    <a href="#" className="text-decoration-none">Top 10 casual look ideas to dress up your kids</a>
+                    <a href="#" className="text-decoration-none">About me</a>
                   </h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipi elit. Aliquet eleifend viverra enim tincidunt donec quam. A in arcu, hendrerit neque dolor morbi...</p>
+                  <p>As a young ambassador, I am an active member of the Morocco-China Association,
+                    enthusiastically participating in conferences and events across Beijing, Xian, Yulin and Shanghai.</p>
                 </div>
               </div>
             </article>
@@ -567,9 +568,10 @@ const submitOrder = () => {
                 </div>
                 <div className="post-header">
                   <h3 className="post-title">
-                    <a href="#" className="text-decoration-none">Latest trends of wearing street wears supremely</a>
+                    <a href="#" className="text-decoration-none">A Moroccan Journey for Chinese Visitors</a>
                   </h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipi elit. Aliquet eleifend viverra enim tincidunt donec quam. A in arcu, hendrerit neque dolor morbi...</p>
+                  <p>I invite Chinese visitors to discover our country, its culture and way of life.
+                    They&apos;ll get to experience authentic moments and participate in traditional activities.</p>
                 </div>
               </div>
             </article>
@@ -588,9 +590,11 @@ const submitOrder = () => {
                 </div>
                 <div className="post-header">
                   <h3 className="post-title">
-                    <a href="#" className="text-decoration-none">10 Different Types of comfortable clothes ideas for women</a>
+                    <a href="#" className="text-decoration-none">My professional identity</a>
                   </h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipi elit. Aliquet eleifend viverra enim tincidunt donec quam. A in arcu, hendrerit neque dolor morbi...</p>
+                  <p>I obtained my master's degree in Xian, specializing in teaching Chinese as a second language 
+                    to foreigners. I had experience teaching Chinese language at Hassan 2 University and London Academy, 
+                    and also teaching Arabic language at the primary school of Shanghai International Studies University.</p>
                 </div>
               </div>
             </article>
@@ -599,30 +603,6 @@ const submitOrder = () => {
       </div>
     </section>
 
-    <section className="py-5 my-5">
-      <div className="container-fluid">
-
-        <div className="bg-warning py-5 rounded-5" style={{backgroundImage: "url('images/bg-pattern-2.png') no-repeat"}}>
-          <div className="container">
-            <div className="row">
-              <div className="col-md-4">
-                <img src="images/phone.png" alt="phone" className="image-float img-fluid" />
-              </div>
-              <div className="col-md-8">
-                <h2 className="my-5">Shop faster with foodmart App</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis sed ptibus liberolectus nonet psryroin. Amet sed lorem posuere sit iaculis amet, ac urna. Adipiscing fames semper erat ac in suspendisse iaculis. Amet blandit tortor praesent ante vitae. A, enim pretiummi senectus magna. Sagittis sed ptibus liberolectus non et psryroin.</p>
-                <div className="d-flex gap-2 flex-wrap">
-                  <img src="images/app-store.jpg" alt="app-store"/>
-                  <img src="images/google-play.jpg" alt="google-play"/>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-      </div>
-    </section>
-    
     <Footer/>
     </>
   )

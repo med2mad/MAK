@@ -14,7 +14,7 @@ function Footer() {
                     <div className="col-md-10">
                     <div className="card-body p-0">
                         <h5>Free delivery</h5>
-                        <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+                        <p className="card-text">Enjoy free delivery on all orders. Fast, reliable, and right to your doorstep!</p>
                     </div>
                     </div>
                 </div>
@@ -29,7 +29,7 @@ function Footer() {
                     <div className="col-md-10">
                     <div className="card-body p-0">
                         <h5>100% secure payment</h5>
-                        <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+                        <p className="card-text">Shop with confidence — our payment system keeps your information safe and protected.</p>
                     </div>
                     </div>
                 </div>
@@ -44,7 +44,8 @@ function Footer() {
                     <div className="col-md-10">
                     <div className="card-body p-0">
                         <h5>Quality guarantee</h5>
-                        <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+                        <p className="card-text">We stand by our products with a quality guarantee.<br/>
+                        Satisfaction assured every time.</p>
                     </div>
                     </div>
                 </div>
@@ -58,7 +59,7 @@ function Footer() {
                     </div>
                     <div className="col-md-10">
                     <div className="card-body p-0">
-                        <h5>guaranteed savings</h5>
+                        <h5>Guaranteed savings</h5>
                         <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
                     </div>
                     </div>
