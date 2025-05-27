@@ -462,7 +462,7 @@ const submitOrder = () => {
               <div className="banner-content p-5">
                 <div className="categories text-primary fs-3 fw-bold">Upto 25% Off</div>
                 <h3 className="banner-title">Honey</h3>
-                <p>Very tasty, from our cozy garden</p>
+                <p>Very tasty, from our cozy garden.</p>
                 <a href="#" className="btn btn-dark text-uppercase">Show Now</a>
               </div>
             </div>
@@ -473,7 +473,7 @@ const submitOrder = () => {
               <div className="banner-content p-5">
                 <div className="categories text-primary fs-3 fw-bold">Upto 25% Off</div>
                 <h3 className="banner-title">100% Organic</h3>
-                <p>From a farm, with natural ingredients only</p>
+                <p>From a farm, natural ingredients only.</p>
                 <a href="#" className="btn btn-dark text-uppercase">Show Now</a>
               </div>
             </div>

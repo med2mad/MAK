@@ -60,7 +60,7 @@ function Footer() {
                     <div className="col-md-10">
                     <div className="card-body p-0">
                         <h5>Guaranteed savings</h5>
-                        <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+                        <p className="card-text">Guaranteed savings on every purchase — great value without compromise.</p>
                     </div>
                     </div>
                 </div>
