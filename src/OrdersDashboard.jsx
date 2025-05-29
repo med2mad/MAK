@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import StatusDropdown from './StatusDropdown';
+import Footer2 from './Footer2';
 
 function OrdersDashboard() {
   const [orders, setOrders] = useState([]);
@@ -48,6 +49,7 @@ function OrdersDashboard() {
   if (error) return <div className="alert alert-danger">Error: {error}</div>;
 
   return (
+    <>
     <div className="container-fluid py-4">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <Link to="/" className="btn btn-outline-secondary" style={{color:'gray'}}>
@@ -106,6 +108,10 @@ function OrdersDashboard() {
         </div>
       </div>
     </div>
+
+    
+    <Footer2 />
+    </>
   );
 }
 

@@ -1,21 +1,16 @@
 .zzz{
-    width: 220px !important;
     height: 260px !important;
+    max-height: none !important;
     object-fit: fill !important;
     border-radius: 10px;
 }
 
-.bestzzz{
-    width: 340px !important;
-
-    max-height: none !important;
+.form-label.required:after {
+  content: " *";
+  color: red;
 }
-  .form-label.required:after {
-    content: " *";
-    color: red;
-  }
 
-  .status-badge {
+.status-badge {
   transition: all 0.3s ease;
 }
 
@@ -46,3 +41,66 @@ select.status-select {
   color:white !important;
 }
 
+.infos{
+  border: solid 1px;
+}
+
+.form-label{
+  margin-bottom: 0;
+}
+
+.productTitle{
+  font-family: 'Roboto', sans-serif; /* or any modern font */
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin: 10px 0 5px 0;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+
+  letter-spacing: 0.5px;
+
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+
+  color: #2c3e50; /* Dark gray for better contrast */
+
+  display: inline-block;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #007bff; /* or your theme color */
+}
+.productTitle:hover {
+  color: #007bff; /* or your theme color */
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .productTitle {
+    font-size: 1rem;
+  }
+}
+
+
+.language-selector {
+  display: flex;
+  gap: 10px;
+}
+
+.language-flag {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.language-flag img {
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  transition: transform 0.2s;
+}
+
+.language-flag img:hover {
+  transform: scale(1.1);
+}

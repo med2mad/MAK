@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import Footer2 from './Footer2';
 
 function OrderDetail() {
   const { id } = useParams();
@@ -51,6 +52,7 @@ const handleDelete = async () => {
   if (!order) return <div className="alert alert-warning">Order not found</div>;
 
   return (
+    <>
     <div className="container-fluid py-4">
       <div className="d-flex justify-content-between align-items-center mb-4">
             <Link to="/dashboard/orders" className="btn btn-outline-secondary" style={{color:'gray'}}>
@@ -154,6 +156,9 @@ const handleDelete = async () => {
         </div>
       </div>
     </div>
+
+    <Footer2 />
+    </>
   );
 }
 
