@@ -1,7 +1,10 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
+const savedLanguage = localStorage.getItem('language') || 'en';
+
 i18n.use(initReactI18next).init({
+  lng: savedLanguage,
   fallbackLng: "en",
   resources: {
     en: {
@@ -31,6 +34,7 @@ i18n.use(initReactI18next).init({
         
         // Products
         trendingProducts: "Trending Products",
+        addToCart:"Add to Cart",
         
         // Ads
         upto25Off: "Upto 25% Off",
@@ -51,7 +55,35 @@ i18n.use(initReactI18next).init({
         moroccanJourney: "A Moroccan Journey for Chinese Visitors",
         moroccanJourneyContent: "I invite Chinese visitors to discover our country, its culture and way of life. They'll get to experience authentic moments and participate in traditional activities.",
         professionalIdentity: "My professional identity",
-        professionalIdentityContent: "I obtained my master's degree in Xian, specializing in teaching Chinese as a second language to foreigners. I had experience teaching Chinese language at Hassan 2 University and London Academy, and also teaching Arabic language at the primary school of Shanghai International Studies University."
+        professionalIdentityContent: "I obtained my master's degree in Xian, specializing in teaching Chinese as a second language to foreigners. I had experience teaching Chinese language at Hassan 2 University and London Academy, and also teaching Arabic language at the primary school of Shanghai International Studies University.",
+      
+        // Footer
+        freeDeliveryTitle: "Free delivery",
+        freeDeliveryText: "Enjoy free delivery on all orders. Fast, reliable, and right to your doorstep!",
+        securePaymentTitle: "100% secure payment",
+        securePaymentText: "Shop with confidence — our payment system keeps your information safe and protected.",
+        qualityGuaranteeTitle: "Quality guarantee",
+        qualityGuaranteeText: "We stand by our products with a quality guarantee. Satisfaction assured every time.",
+        guaranteedSavingsTitle: "Guaranteed savings",
+        guaranteedSavingsText: "Guaranteed savings on every purchase — great value without compromise.",
+
+        // Footer2
+        socialMedia: "Social media",
+        instagram: "Instagram",
+        linkedin: "LinkedIn",
+        youtube: "Youtube",
+        links: "Links",
+        shop: "Shop",
+        blogs: "Blogs",
+        toTheTop: "To the top",
+        contact: "Contact",
+        email2: "Email",
+        tel: "Tel",
+        address: "Address",
+        copyright: "© 2024 MAK. All rights reserved.",
+
+        //Nav
+        languages: "Language"
       }
     },
     fr: {
@@ -64,7 +96,7 @@ i18n.use(initReactI18next).init({
         total: "Total",
         yourInformations: "Vos Informations",
         fullName: "Nom Complet",
-        phoneNumber: "Numéro de Téléphone",
+        phoneNumber: "Tel",
         email: "Email",
         couponCode: "Code de Réduction",
         shippingAddress: "Adresse de Livraison",
@@ -81,7 +113,8 @@ i18n.use(initReactI18next).init({
         
         // Products
         trendingProducts: "Produits Tendances",
-        
+        addToCart:"Ajouter au panier",
+
         // Ads
         upto25Off: "Jusqu'à 25% de Réduction",
         honey: "Miel",
@@ -101,7 +134,35 @@ i18n.use(initReactI18next).init({
         moroccanJourney: "Un Voyage Marocain pour les Visiteurs Chinois",
         moroccanJourneyContent: "J'invite les visiteurs chinois à découvrir notre pays, sa culture et son mode de vie. Ils pourront vivre des moments authentiques et participer à des activités traditionnelles.",
         professionalIdentity: "Mon identité professionnelle",
-        professionalIdentityContent: "J'ai obtenu mon master à Xian, spécialisé dans l'enseignement du chinois comme langue seconde aux étrangers. J'ai eu l'expérience d'enseigner la langue chinoise à l'Université Hassan II et à la London Academy, et aussi d'enseigner la langue arabe à l'école primaire de l'Université des études internationales de Shanghai."
+        professionalIdentityContent: "J'ai obtenu mon master à Xian, spécialisé dans l'enseignement du chinois comme langue seconde aux étrangers. J'ai eu l'expérience d'enseigner la langue chinoise à l'Université Hassan II et à la London Academy, et aussi d'enseigner la langue arabe à l'école primaire de l'Université des études internationales de Shanghai.",
+
+        // Footer
+        freeDeliveryTitle: "Livraison gratuite",
+        freeDeliveryText: "Profitez de la livraison gratuite sur toutes les commandes. Rapide, fiable et directement à votre porte!",
+        securePaymentTitle: "Paiement 100% sécurisé",
+        securePaymentText: "Achetez en toute confiance — notre système de paiement protège vos informations.",
+        qualityGuaranteeTitle: "Garantie de qualité",
+        qualityGuaranteeText: "Nous garantissons la qualité de nos produits. Satisfaction assurée à chaque fois.",
+        guaranteedSavingsTitle: "Économies garanties",
+        guaranteedSavingsText: "Économies garanties sur chaque achat — excellent rapport qualité-prix.",
+        
+        // Footer2
+        socialMedia: "Réseaux sociaux",
+        instagram: "Instagram",
+        linkedin: "LinkedIn",
+        youtube: "Youtube",
+        links: "Liens",
+        shop: "Boutique",
+        blogs: "Blogs",
+        toTheTop: "Retour en haut",
+        contact: "Contact",
+        email2: "Email",
+        tel: "Téléphone",
+        address: "Adresse",
+        copyright: "© 2024 MAK. Tous droits réservés.",
+
+        //Nav
+        languages: "Langue"
       }
     },
     ch: {
@@ -131,7 +192,8 @@ i18n.use(initReactI18next).init({
         
         // Products
         trendingProducts: "热门产品",
-        
+        addToCart:"添加到购物车",
+
         // Ads
         upto25Off: "高达25%折扣",
         honey: "蜂蜜",
@@ -151,7 +213,35 @@ i18n.use(initReactI18next).init({
         moroccanJourney: "中国游客的摩洛哥之旅",
         moroccanJourneyContent: "我邀请中国游客来探索我们的国家、文化和生活方式。他们将体验真实的时刻并参与传统活动。",
         professionalIdentity: "我的专业身份",
-        professionalIdentityContent: "我在西安获得了硕士学位，专业是向外国人教授汉语作为第二语言。我有在哈桑二世大学和伦敦学院教授汉语的经验，也在上海外国语大学附属小学教授阿拉伯语。"
+        professionalIdentityContent: "我在西安获得了硕士学位，专业是向外国人教授汉语作为第二语言。我有在哈桑二世大学和伦敦学院教授汉语的经验，也在上海外国语大学附属小学教授阿拉伯语。",
+
+        // Footer
+        freeDeliveryTitle: "免费送货",
+        freeDeliveryText: "所有订单享受免费送货服务。快速、可靠，直接送到您家门口！",
+        securePaymentTitle: "100%安全支付",
+        securePaymentText: "放心购物——我们的支付系统保护您的信息安全。",
+        qualityGuaranteeTitle: "质量保证",
+        qualityGuaranteeText: "我们保证产品质量。每次购物都让您满意。",
+        guaranteedSavingsTitle: "保证节省",
+        guaranteedSavingsText: "每次购买都保证节省——物超所值。",
+        
+        // Footer2
+        socialMedia: "社交媒体",
+        instagram: "Instagram",
+        linkedin: "LinkedIn",
+        youtube: "Youtube",
+        links: "链接",
+        shop: "商店",
+        blogs: "博客",
+        toTheTop: "回到顶部",
+        contact: "联系",
+        email2: "电子邮件",
+        tel: "电话",
+        address: "地址",
+        copyright: "© 2024 MAK。保留所有权利。",
+
+        //Nav
+        languages: "语言"
       }
     }
   }

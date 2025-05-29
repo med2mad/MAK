@@ -4,9 +4,55 @@ import StatusDropdown from './StatusDropdown';
 import Footer2 from './Footer2';
 
 function OrdersDashboard() {
+  const correctPassword = '1234';
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    // Check localStorage on load
+    const storedAuth = localStorage.getItem('auth_protected_page');
+    if (storedAuth === 'true') {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (password === correctPassword) {
+      setIsAuthenticated(true);
+      localStorage.setItem('auth_protected_page', 'true');
+    } else {
+      setError('Incorrect password');
+    }
+  };
+
+  const modal = (
+    <div style={styles.modalOverlay}>
+      <div style={styles.modalBox}>
+        <h2 style={styles.title}>🔒 Protected Access</h2>
+        <p style={styles.description}>Please enter the password to view this page.</p>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setError('');
+            }}
+            placeholder="Enter password"
+            style={styles.input}
+          />
+          {error && <p style={styles.error}>{error}</p>}
+          <button type="submit" style={styles.button}>Unlock</button>
+        </form>
+      </div>
+    </div>
+  );
+  
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error1, setError1] = useState(null);
 
   const handleDeleteOrder = async (orderId) => {
     if (window.confirm('Delete this order?')) {
@@ -36,7 +82,7 @@ function OrdersDashboard() {
         const data = await response.json();
         setOrders(data);
       } catch (err) {
-        setError(err.message);
+        setError1(err.message);
       } finally {
         setLoading(false);
       }
@@ -46,7 +92,7 @@ function OrdersDashboard() {
   }, []);
 
   if (loading) return <div className="text-center py-5">Loading orders...</div>;
-  if (error) return <div className="alert alert-danger">Error: {error}</div>;
+  if (error1) return <div className="alert alert-danger">Error: {error1}</div>;
 
   return (
     <>
@@ -109,24 +155,77 @@ function OrdersDashboard() {
       </div>
     </div>
 
-    
     <Footer2 />
+
+    <div>
+      {!isAuthenticated && modal}
+      {isAuthenticated && (
+        <div style={styles.pageContent}>
+        </div>
+      )}
+    </div>
     </>
   );
 }
 
-// Helper function for status badge styling
-function getStatusBadgeClass(status) {
-  switch (status) {
-    case 'pending':
-      return 'bg-warning text-dark';
-    case 'completed':
-      return 'bg-success';
-    case 'cancelled':
-      return 'bg-danger text-dark';
-    default:
-      return 'bg-secondary';
+const styles = {
+  modalOverlay: {
+    position: 'fixed',
+    top: 0, left: 0,
+    width: '100vw', height: '100vh',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 9999,
+  },
+  modalBox: {
+    backgroundColor: '#fff',
+    padding: '2rem',
+    borderRadius: '12px',
+    width: '100%',
+    maxWidth: '400px',
+    boxShadow: '0 8px 20px rgba(0, 0, 0, 0.2)',
+    textAlign: 'center',
+  },
+  title: {
+    marginBottom: '0.5rem',
+    fontSize: '1.5rem',
+    fontWeight: '600',
+  },
+  description: {
+    marginBottom: '1.5rem',
+    color: '#555',
+  },
+  input: {
+    width: '100%',
+    padding: '0.75rem',
+    fontSize: '1rem',
+    border: '1px solid #ccc',
+    borderRadius: '8px',
+    marginBottom: '1rem',
+    outline: 'none',
+    boxSizing: 'border-box',
+  },
+  button: {
+    width: '100%',
+    padding: '0.75rem',
+    fontSize: '1rem',
+    backgroundColor: '#4f46e5',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    transition: 'background-color 0.2s',
+  },
+  error: {
+    color: '#e11d48',
+    marginBottom: '1rem',
+  },
+  pageContent: {
+    padding: '2rem',
+    textAlign: 'center',
   }
-}
+};
 
 export default OrdersDashboard;

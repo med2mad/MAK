@@ -55,10 +55,10 @@ select.status-select {
   font-weight: 600;
   color: #333;
   margin: 10px 0 5px 0;
+  text-align: center;
 
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  overflow: visible;
   max-width: 100%;
 
   letter-spacing: 0.5px;
@@ -103,4 +103,149 @@ select.status-select {
 
 .language-flag img:hover {
   transform: scale(1.1);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-header button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modal-body input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.error {
+  color: red;
+  margin-top: 5px;
+}
+
+/* Product Item */
+.product-item {
+  background: white;
+  border-radius: 8px;
+  padding: 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  height: 100%;
+
+}
+
+.product-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Product Actions */
+.product-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.input-group.product-qty {
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.input-group.product-qty .btn {
+  transition: all 0.2s ease;
+}
+
+
+
+/* Add to Cart Button */
+.add-to-cart-btn {
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.add-to-cart-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+/* Badge */
+.badge.bg-success {
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.price{
+  text-align: center;
+  margin-top: 10px;
+}
+
+.product-item figure {
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.zzz {
+  height: 260px !important;
+  max-height: none !important;
+  object-fit: fill !important;
+  border-radius: 10px;
+  transition: transform 0.3s ease; /* Add transition */
+  width: 100%;
+}
+
+.product-item:hover .zzz {
+  transform: scale(1.05); /* Zoom effect */
+}
+
+/* Existing styles remain the same */
+.product-item {
+  background: white;
+  border-radius: 8px;
+  padding: 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  height: fit-content;
+}
+
+.product-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }

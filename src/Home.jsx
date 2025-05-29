@@ -149,9 +149,9 @@ function Home() {
                     <img 
                       src={'images/products/'+product.photo} 
                       style={{ width: '50px', height: '50px', marginRight: '15px', flexShrink: 0 }} 
-                      alt={product.name}
+                      alt={product.nameEN}
                     />
-                    <h6 className="my-0" style={{ flex: 1 }}>{product.name}</h6>
+                    <h6 className="my-0" style={{ flex: 1 }}>{product.nameEN}</h6>
                   </div>
                   <div className="d-flex align-items-center" style={{ flexShrink: 0 }}>
                     <div className="input-group me-2">
@@ -282,13 +282,13 @@ function Home() {
       <div className="offcanvas offcanvas-end" data-bs-scroll="true" tabIndex="-1" id="offcanvasSearch" aria-labelledby="Search">
       </div>
 
-      <header>
+      <header id="headerid">
         <div className="container-fluid">
           <div className="row pt-3 border-bottom">
             <div className="col-sm-4 col-lg-3 text-center text-sm-start">
               <div className="main-logo">
-                <a href="index.html">
-                  <img src="images/logo.png" style={{width:'100px'}} alt="logo" className="img-fluid"/>
+                <a href="javascript:void(0)">
+                  <img src="images/logo.png" style={{width:'100px', cursor:'default'}} alt="logo" className="img-fluid"/>
                 </a>
               </div>
             </div>
@@ -362,7 +362,7 @@ function Home() {
                             <div className="categories my-3">{t('natural')}</div>
                             <h3 className="display-4">{t('discoverArganOil')}</h3>
                             <p>{t('arganOilDescription')}</p>
-                            <a href="#" className="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1 px-4 py-3 mt-3">{t('shopNow')}</a>
+                            <a href="#shopid" className="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1 px-4 py-3 mt-3">{t('shopNow')}</a>
                           </div>
                           <div className="img-wrapper col-md-5">
                             <img src="images/product-thumb-1.png" style={{width:'550px !important', maxWidth:'none'}} className="img-fluid"/>
@@ -379,7 +379,7 @@ function Home() {
                     <div className="content-wrapper col-md-7">
                       <div className="categories sale mb-3 pb-3">15% off</div>
                       <h3 className="banner-title">{t('foodAndBeauty')}</h3>
-                      <a href="#" className="d-flex align-items-center nav-link">{t('shopCollection')} <svg width="24" height="24"><use xlinkHref="#arrow-down"></use></svg></a>
+                      <a href="#shopid" className="d-flex align-items-center nav-link">{t('shopCollection')} <svg width="24" height="24"><use xlinkHref="#arrow-down"></use></svg></a>
                     </div>
                   </div>
                 </div>
@@ -389,7 +389,7 @@ function Home() {
                     <div className="content-wrapper col-md-7">
                       <div className="categories sale mb-3 pb-3">10% off</div>
                       <h3 className="item-title">{t('bakedCleanProducts')}</h3>
-                      <a href="#" className="d-flex align-items-center nav-link">{t('shopCollection')} <svg width="24" height="24"><use xlinkHref="#arrow-down"></use></svg></a>
+                      <a href="#shopid" className="d-flex align-items-center nav-link">{t('shopCollection')} <svg width="24" height="24"><use xlinkHref="#arrow-down"></use></svg></a>
                     </div>
                   </div>
                 </div>
@@ -405,7 +405,7 @@ function Home() {
             <div className="col-md-12">
               <div className="bootstrap-tabs product-tabs">
                 <div className="tabs-header d-flex justify-content-between border-bottom mt-4">
-                  <h3>{t('trendingProducts')}</h3>
+                  <h3 id="shopid">{t('trendingProducts')}</h3>
                 </div>
                 <div className="tab-content" id="nav-tabContent">
                   <div className="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
@@ -429,7 +429,7 @@ function Home() {
                   <div className="categories text-primary fs-3 fw-bold">{t('upto25Off')}</div>
                   <h3 className="banner-title">{t('honey')}</h3>
                   <p>{t('honeyDescription')}</p>
-                  <a href="#" className="btn btn-dark text-uppercase">{t('showNow')}</a>
+                  <a href="#shopid" className="btn btn-dark text-uppercase">{t('showNow')}</a>
                 </div>
               </div>
             </div>
@@ -440,7 +440,7 @@ function Home() {
                   <div className="categories text-primary fs-3 fw-bold">{t('upto25Off')}</div>
                   <h3 className="banner-title">{t('organic100')}</h3>
                   <p>{t('organicDescription')}</p>
-                  <a href="#" className="btn btn-dark text-uppercase">{t('showNow')}</a>
+                  <a href="#shopid" className="btn btn-dark text-uppercase">{t('showNow')}</a>
                 </div>
               </div>
             </div>
@@ -452,7 +452,7 @@ function Home() {
         <div className="container-fluid">
           <div className="row">
             <div className="section-header d-flex align-items-center justify-content-between">
-              <h2 className="section-title">{t('ourRecentBlogs')}</h2>
+              <h2 id="blogsid" className="section-title">{t('ourRecentBlogs')}</h2>
             </div>
           </div>
           <div className="row">
@@ -465,8 +465,7 @@ function Home() {
                 </div>
                 <div className="card-body">
                   <div className="post-meta d-flex text-uppercase gap-3 my-2 align-items-center">
-                    <div className="meta-date"><svg width="16" height="16"><use xlinkHref="#calendar"></use></svg>22 Aug 2021</div>
-                    <div className="meta-categories"><svg width="16" height="16"><use xlinkHref="#category"></use></svg>{t('tipsTricks')}</div>
+                    <div className="meta-date"><svg width="16" height="16"><use xlinkHref="#calendar"></use></svg>22/08/2023</div>
                   </div>
                   <div className="post-header">
                     <h3 className="post-title">
@@ -486,8 +485,7 @@ function Home() {
                 </div>
                 <div className="card-body">
                   <div className="post-meta d-flex text-uppercase gap-3 my-2 align-items-center">
-                    <div className="meta-date"><svg width="16" height="16"><use xlinkHref="#calendar"></use></svg>25 Aug 2021</div>
-                    <div className="meta-categories"><svg width="16" height="16"><use xlinkHref="#category"></use></svg>{t('trending')}</div>
+                    <div className="meta-date"><svg width="16" height="16"><use xlinkHref="#calendar"></use></svg>25/03/2024</div>
                   </div>
                   <div className="post-header">
                     <h3 className="post-title">
@@ -507,8 +505,7 @@ function Home() {
                 </div>
                 <div className="card-body">
                   <div className="post-meta d-flex text-uppercase gap-3 my-2 align-items-center">
-                    <div className="meta-date"><svg width="16" height="16"><use xlinkHref="#calendar"></use></svg>28 Aug 2021</div>
-                    <div className="meta-categories"><svg width="16" height="16"><use xlinkHref="#category"></use></svg>{t('inspiration')}</div>
+                    <div className="meta-date"><svg width="16" height="16"><use xlinkHref="#calendar"></use></svg>11/09/2024</div>
                   </div>
                   <div className="post-header">
                     <h3 className="post-title">
