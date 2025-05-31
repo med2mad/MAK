@@ -28,7 +28,8 @@ function StatusDropdown({ currentStatus, orderId, onStatusChange }) {
     setIsUpdating(true);
     
     try {
-      const response = await fetch(`http://localhost:8000/api/orders/${orderId}/status`, {
+      // const response = await fetch(`http://localhost:8000/api/orders/${orderId}/status`, {
+      const response = await fetch(`http://mak.ct.ws/api/orders/${orderId}/status`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

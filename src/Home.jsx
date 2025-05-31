@@ -17,7 +17,8 @@ function Home() {
 
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:8000/') 
+    // fetch('http://localhost:8000/')
+    fetch('https://mak.ct.ws/') 
       .then(response => response.json())
       .then(data => {
         setProducts(data.rows.map(product => ({ ...product, quantity: 1 })));
@@ -29,7 +30,8 @@ function Home() {
   useEffect(() => {
     if (cartItems.length > 0) {
       const ids = cartItems.map(item => item.id);
-      fetch('http://localhost:8000/cart?ids=' + ids.join(',')) 
+      // fetch('http://localhost:8000/cart?ids=' + ids.join(',')) 
+      fetch('https://mak.ct.ws/cart?ids=' + ids.join(',')) 
         .then(response => response.json())
         .then(data => {
           const updatedCart = data.rows.map(product => {
@@ -97,7 +99,8 @@ function Home() {
       ).toFixed(2)
     };
 
-    fetch('http://localhost:8000/api/orders', {
+    // fetch('http://localhost:8000/api/orders', {
+      fetch('http://mak.ct.ws/api/orders', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

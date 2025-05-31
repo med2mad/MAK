@@ -13,12 +13,9 @@ function OrderDetail() {
 const handleDelete = async () => {
   if (window.confirm('Delete this order?')) {
     try {
-      const response = await fetch(`http://localhost:8000/api/orders/${order.id}`, {
-        method: 'DELETE'
-      });
-
+      // const response = await fetch(`http://localhost:8000/api/orders/${order.id}`, {method: 'DELETE'});
+      const response = await fetch(`https://mak.ct.ws/api/orders/${order.id}`, {method: 'DELETE'});
       if (!response.ok) throw new Error('Delete failed');
-      
       alert('Order deleted successfully');
       navigate('/dashboard/orders');
     } catch (error) {
@@ -31,7 +28,8 @@ const handleDelete = async () => {
   useEffect(() => {
     const fetchOrder = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/api/orders/${id}`);
+        // const response = await fetch(`http://localhost:8000/api/orders/${id}`);
+        const response = await fetch(`https://mak.ct.ws/api/orders/${id}`);
         if (!response.ok) {
           throw new Error('Failed to fetch order');
         }

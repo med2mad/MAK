@@ -1,0 +1,5 @@
+can upcome dashboard secutity : if you knew you should go to /admin you can inspect and remove the password modal container
+clicking add to cart od 2 products quickly makes the cart start flickering
+the coupon value does not get substracted from the total amount
+does not feel good in mobile
+made with PHP (very slow)
