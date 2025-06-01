@@ -34,6 +34,9 @@ function Nav() {
                 <li className="nav-item">
                     <a href="javascript:void(0)" className="nav-link"> | </a>
                 </li>
+                                <li className="nav-item">
+                    <a href="/admin" className="nav-link"> qwdwd </a>
+                </li>
             </ul>
 
             <div style={{display:'flex', marginLeft:'10px'}}>
