@@ -5,6 +5,9 @@ import Footer from './Footer';
 import { useTranslation } from "react-i18next";
 
 function Home() {
+  // const domain = "http://localhost:8000";
+  const domain = "https://mak.ct.ws";
+
   const { t } = useTranslation();
 
   const [customerInfo, setCustomerInfo] = useState({
@@ -17,12 +20,18 @@ function Home() {
 
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    // fetch('http://localhost:8000/')
-    fetch('https://mak.ct.ws/') 
+
+    fetch(domain, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+    })
       .then(response => response.json())
       .then(data => {
         setProducts(data.rows.map(product => ({ ...product, quantity: 1 })));
       })
+
+
+
   }, []);
 
   const [cartItems, setCartItems] = useState([]);
@@ -30,8 +39,8 @@ function Home() {
   useEffect(() => {
     if (cartItems.length > 0) {
       const ids = cartItems.map(item => item.id);
-      // fetch('http://localhost:8000/cart?ids=' + ids.join(',')) 
-      fetch('https://mak.ct.ws/cart?ids=' + ids.join(',')) 
+
+      fetch(domain + '/cart?ids=' + ids.join(','))
         .then(response => response.json())
         .then(data => {
           const updatedCart = data.rows.map(product => {
@@ -66,7 +75,7 @@ function Home() {
     if (newQuantity < 1) {
       newQuantity = 1;
     }
-    
+
     setCartItems(prevCartItems =>
       prevCartItems.map(item =>
         item.id === id ? { ...item, quantity: newQuantity } : item
@@ -99,8 +108,7 @@ function Home() {
       ).toFixed(2)
     };
 
-    // fetch('http://localhost:8000/api/orders', {
-      fetch('http://mak.ct.ws/api/orders', {
+    fetch(domain + '/orders', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -108,27 +116,27 @@ function Home() {
       },
       body: JSON.stringify(orderData)
     })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => {
-      alert(t('orderSubmitted'));
-      setCartItems([]);
-      setCustomerInfo({
-        name: '',
-        email: '',
-        phone: '',
-        address: '',
-        coupon_code: ''
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        alert(t('orderSubmitted'));
+        setCartItems([]);
+        setCustomerInfo({
+          name: '',
+          email: '',
+          phone: '',
+          address: '',
+          coupon_code: ''
+        });
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert(t('orderError'));
       });
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert(t('orderError'));
-    });
   };
 
   return (
@@ -149,34 +157,34 @@ function Home() {
               {cartItems.map((product, index) => (
                 <li key={index} className="list-group-item d-flex justify-content-between align-items-center lh-sm">
                   <div className="d-flex align-items-center" style={{ flex: 1, minWidth: 0 }}>
-                    <img 
-                      src={'images/products/'+product.photo} 
-                      style={{ width: '50px', height: '50px', marginRight: '15px', flexShrink: 0 }} 
+                    <img
+                      src={'images/products/' + product.photo}
+                      style={{ width: '50px', height: '50px', marginRight: '15px', flexShrink: 0 }}
                       alt={product.nameEN}
                     />
                     <h6 className="my-0" style={{ flex: 1 }}>{product.nameEN}</h6>
                   </div>
                   <div className="d-flex align-items-center" style={{ flexShrink: 0 }}>
                     <div className="input-group me-2">
-                      <button 
-                        className="btn btn-outline-secondary" style={{padding:'0 5px'}}
+                      <button
+                        className="btn btn-outline-secondary" style={{ padding: '0 5px' }}
                         onClick={() => updateCartItemQuantity(product.id, product.quantity - 1)}
                       >
                         -
                       </button>
-                      <input 
-                        id={'qtyId'+index}
-                        type="text" 
-                        className="form-control text-center px-0" 
+                      <input
+                        id={'qtyId' + index}
+                        type="text"
+                        className="form-control text-center px-0"
                         value={product.quantity}
-                        style={{width: '20px'}}
+                        style={{ width: '20px' }}
                         onChange={(e) => {
                           const value = parseInt(e.target.value) || 1;
                           updateCartItemQuantity(product.id, value);
                         }}
                       />
-                      <button 
-                        className="btn btn-outline-secondary" style={{padding:'0 5px'}}
+                      <button
+                        className="btn btn-outline-secondary" style={{ padding: '0 5px' }}
                         onClick={() => updateCartItemQuantity(product.id, product.quantity + 1)}
                       >
                         +
@@ -185,8 +193,8 @@ function Home() {
                     <span className="text-body-secondary me-1" style={{ minWidth: '50px', textAlign: 'right' }}>
                       {(product.price * product.quantity).toFixed(2)}
                     </span>
-                    <button 
-                      onClick={() => onRemoveFromCart(product.id)} 
+                    <button
+                      onClick={() => onRemoveFromCart(product.id)}
                       className="btn btn-sm btn-outline-danger py-0 px-2"
                     >
                       X
@@ -196,7 +204,7 @@ function Home() {
               ))}
               <li className="list-group-item d-flex justify-content-end">
                 <span>{t('total')} :&nbsp;</span>
-                <strong>{cartItems.reduce((sum, product)=> sum + Number(product.price) * product.quantity, 0).toFixed(2)} DH</strong>
+                <strong>{cartItems.reduce((sum, product) => sum + Number(product.price) * product.quantity, 0).toFixed(2)} DH</strong>
               </li>
             </ul>
 
@@ -269,9 +277,9 @@ function Home() {
             </div>
 
             <div>
-              <button 
-                onClick={submitOrder} 
-                className="w-100 btn btn-primary btn-lg" 
+              <button
+                onClick={submitOrder}
+                className="w-100 btn btn-primary btn-lg"
                 type="submit"
                 disabled={cartItems.length === 0 || !customerInfo.name || !customerInfo.phone}
               >
@@ -281,7 +289,7 @@ function Home() {
           </div>
         </div>
       </div>
-      
+
       <div className="offcanvas offcanvas-end" data-bs-scroll="true" tabIndex="-1" id="offcanvasSearch" aria-labelledby="Search">
       </div>
 
@@ -291,11 +299,11 @@ function Home() {
             <div className="col-sm-4 col-lg-3 text-center text-sm-start">
               <div className="main-logo">
                 <a href="javascript:void(0)">
-                  <img src="images/logo.png" style={{width:'100px', cursor:'default'}} alt="logo" className="img-fluid"/>
+                  <img src="images/logo.png" style={{ width: '100px', cursor: 'default' }} alt="logo" className="img-fluid" />
                 </a>
               </div>
             </div>
-            
+
             <div className="col-sm-6 offset-sm-2 offset-md-0 col-lg-5 d-none d-lg-block pt-3">
               <nav className="main-menu d-flex navbar navbar-expand-lg">
                 <div className="offcanvas offcanvas-end">
@@ -305,7 +313,7 @@ function Home() {
                 </div>
               </nav>
             </div>
-            
+
             <div className="col-sm-8 col-lg-4 d-flex justify-content-end gap-5 align-items-center mt-4 mt-sm-0 justify-content-center justify-content-sm-end">
               <ul className="d-flex justify-content-end list-unstyled m-0">
                 <li className="d-lg-none">
@@ -350,8 +358,8 @@ function Home() {
           </div>
         </div>
       </header>
-      
-      <section style={{backgroundImage: "url('images/background-pattern.jpg')", backgroundRepeat: 'no-repeat',backgroundSize: 'cover'}}>
+
+      <section style={{ backgroundImage: "url('images/background-pattern.jpg')", backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-12">
@@ -368,7 +376,7 @@ function Home() {
                             <a href="#shopid" className="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1 px-4 py-3 mt-3">{t('shopNow')}</a>
                           </div>
                           <div className="img-wrapper col-md-5">
-                            <img src="images/product-thumb-1.png" style={{width:'550px !important', maxWidth:'none'}} className="img-fluid"/>
+                            <img src="images/product-thumb-1.png" style={{ width: '550px !important', maxWidth: 'none' }} className="img-fluid" />
                           </div>
                         </div>
                       </div>
@@ -376,8 +384,8 @@ function Home() {
                     <div className="swiper-pagination"></div>
                   </div>
                 </div>
-                
-                <div className="banner-ad bg-success-subtle block-2" style={{background:"url('images/ad-image-1.png') no-repeat", backgroundPosition: 'right bottom'}}>
+
+                <div className="banner-ad bg-success-subtle block-2" style={{ background: "url('images/ad-image-1.png') no-repeat", backgroundPosition: 'right bottom' }}>
                   <div className="row banner-content p-5">
                     <div className="content-wrapper col-md-7">
                       <div className="categories sale mb-3 pb-3">15% off</div>
@@ -387,7 +395,7 @@ function Home() {
                   </div>
                 </div>
 
-                <div className="banner-ad bg-danger block-3" style={{background:"url('images/ad-image-2.png') no-repeat", backgroundPosition: 'right bottom'}}>
+                <div className="banner-ad bg-danger block-3" style={{ background: "url('images/ad-image-2.png') no-repeat", backgroundPosition: 'right bottom' }}>
                   <div className="row banner-content p-5">
                     <div className="content-wrapper col-md-7">
                       <div className="categories sale mb-3 pb-3">10% off</div>
@@ -427,7 +435,7 @@ function Home() {
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-6">
-              <div className="banner-ad bg-danger mb-3" style={{background: "url('images/ad-image-3.png')", backgroundRepeat: 'no-repeat', backgroundPosition: 'right'}}>
+              <div className="banner-ad bg-danger mb-3" style={{ background: "url('images/ad-image-3.png')", backgroundRepeat: 'no-repeat', backgroundPosition: 'right' }}>
                 <div className="banner-content p-5">
                   <div className="categories text-primary fs-3 fw-bold">{t('upto25Off')}</div>
                   <h3 className="banner-title">{t('honey')}</h3>
@@ -438,7 +446,7 @@ function Home() {
             </div>
 
             <div className="col-md-6">
-              <div className="banner-ad bg-info" style={{background: "url('images/ad-image-4.png')", backgroundRepeat: 'no-repeat', backgroundPosition: 'right'}}>
+              <div className="banner-ad bg-info" style={{ background: "url('images/ad-image-4.png')", backgroundRepeat: 'no-repeat', backgroundPosition: 'right' }}>
                 <div className="banner-content p-5">
                   <div className="categories text-primary fs-3 fw-bold">{t('upto25Off')}</div>
                   <h3 className="banner-title">{t('organic100')}</h3>
@@ -463,7 +471,7 @@ function Home() {
               <article className="post-item card border-0 shadow-sm p-3">
                 <div className="image-holder zoom-effect">
                   <a href="#">
-                    <img src="images/posts/2.jpg" alt="post" className="card-img-top"/>
+                    <img src="images/posts/2.jpg" alt="post" className="card-img-top" />
                   </a>
                 </div>
                 <div className="card-body">
@@ -483,7 +491,7 @@ function Home() {
               <article className="post-item card border-0 shadow-sm p-3">
                 <div className="image-holder zoom-effect">
                   <a href="#">
-                    <img src="images/posts/3.jpg" alt="post" className="card-img-top"/>
+                    <img src="images/posts/3.jpg" alt="post" className="card-img-top" />
                   </a>
                 </div>
                 <div className="card-body">
@@ -503,7 +511,7 @@ function Home() {
               <article className="post-item card border-0 shadow-sm p-3">
                 <div className="image-holder zoom-effect">
                   <a href="#">
-                    <img src="images/posts/1.jpg" alt="post" className="card-img-top"/>
+                    <img src="images/posts/1.jpg" alt="post" className="card-img-top" />
                   </a>
                 </div>
                 <div className="card-body">
@@ -523,7 +531,7 @@ function Home() {
         </div>
       </section>
 
-      <Footer/>
+      <Footer />
     </>
   );
 }

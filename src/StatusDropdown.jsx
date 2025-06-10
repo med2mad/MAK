@@ -26,10 +26,10 @@ function StatusDropdown({ currentStatus, orderId, onStatusChange }) {
   const handleChange = async (e) => {
     const newStatus = e.target.value;
     setIsUpdating(true);
-    
+
     try {
-      // const response = await fetch(`http://localhost:8000/api/orders/${orderId}/status`, {
-      const response = await fetch(`http://mak.ct.ws/api/orders/${orderId}/status`, {
+      // const response = await fetch(`http://localhost:8000/orders/${orderId}/status`, {
+      const response = await fetch(`https://mak.ct.ws/orders/${orderId}/status`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ function StatusDropdown({ currentStatus, orderId, onStatusChange }) {
       });
 
       if (!response.ok) throw new Error('Update failed');
-      
+
       setStatus(newStatus);
       onStatusChange && onStatusChange(orderId, newStatus);
     } catch (error) {
@@ -49,7 +49,7 @@ function StatusDropdown({ currentStatus, orderId, onStatusChange }) {
   };
 
   return (
-    <select 
+    <select
       value={status}
       onChange={handleChange}
       disabled={isUpdating}
@@ -62,9 +62,9 @@ function StatusDropdown({ currentStatus, orderId, onStatusChange }) {
         outline: 'none'
       }}
     >
-      <option value="completed" style={{backgroundColor:'green', color:'white'}}>Completed</option>
-      <option value="pending" style={{backgroundColor:'yellow', color:'black'}}>Pending</option>
-      <option value="cancelled" style={{backgroundColor:'red', color:'white'}}>Cancelled</option>
+      <option value="completed" style={{ backgroundColor: 'green', color: 'white' }}>Completed</option>
+      <option value="pending" style={{ backgroundColor: 'yellow', color: 'black' }}>Pending</option>
+      <option value="cancelled" style={{ backgroundColor: 'red', color: 'white' }}>Cancelled</option>
     </select>
   );
 }
