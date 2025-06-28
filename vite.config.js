@@ -7,7 +7,7 @@ export default defineConfig({
     proxy: {
       // Proxy all requests to your Laravel backend
       '^/(cart|orders)': {
-        target: 'https://mak.ct.ws',
+        target: 'http://localhost:8000',//'https://mak.ct.ws',
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path, // Keep the original path

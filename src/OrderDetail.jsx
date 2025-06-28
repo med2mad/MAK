@@ -3,12 +3,16 @@ import { useParams, Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Footer2 from './Footer2';
 
-function OrderDetail({ domain }) {
+function OrderDetail() {
   const { id } = useParams();
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  const domain = "http://localhost:5081";
+  // const domain = "http://localhost:8000";
+  // const domain = "https://mak.ct.ws";
 
   const handleDelete = async () => {
     if (window.confirm('Delete this order?')) {
@@ -32,6 +36,7 @@ function OrderDetail({ domain }) {
           throw new Error('Failed to fetch order');
         }
         const data = await response.json();
+        console.log('Fetched order data:', data.order_products);
         setOrder(data);
       } catch (err) {
         setError(err.message);
@@ -126,26 +131,32 @@ function OrderDetail({ domain }) {
                   </tr>
                 </thead>
                 <tbody>
-                  {order.products.map(product => (
-                    <tr key={product.id}>
-                      <td>
-                        <div className="d-flex align-items-center">
-                          <img
-                            src={'/images/products/' + product.photo}
-                            alt={product.name}
-                            style={{ width: '50px', marginRight: '15px' }}
-                          />
-                          <div>
-                            <h6 className="mb-0">{product.nameEN}</h6>
-                            <small className="text-muted">{product.nameCH}</small>
+                  {Array.isArray(order.order_products) && order.order_products.length > 0 ? (
+                    order.order_products.map(order_product => (
+                      <tr key={order_product.id}>
+                        <td>
+                          <div className="d-flex align-items-center">
+                            <img
+                              src={'/images/products/' + order_product.product.photo}
+                              alt={order_product.product.name}
+                              style={{ width: '50px', marginRight: '15px' }}
+                            />
+                            <div>
+                              <h6 className="mb-0">{order_product.product.nameEN}</h6>
+                              <small className="text-muted">{order_product.product.nameCH}</small>
+                            </div>
                           </div>
-                        </div>
-                      </td>
-                      <td>{product.price} DH</td>
-                      <td>{product.pivot.quantity}</td>
-                      <td>{(product.price * product.pivot.quantity).toFixed(2)} DH</td>
+                        </td>
+                        <td>{order_product.product.price} DH</td>
+                        <td>{order_product.quantity}</td>
+                        <td>{(order_product.product.price * order_product.quantity).toFixed(2)} DH</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="4" className="text-center">No products found for this order.</td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
             </div>

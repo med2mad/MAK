@@ -34,22 +34,22 @@ function Nav() {
                 <li className="nav-item">
                     <a href="javascript:void(0)" className="nav-link"> | </a>
                 </li>
-                                <li className="nav-item">
+                {/* <li className="nav-item">
                     <a href="/admin" className="nav-link"> qwdwd </a>
-                </li>
+                </li> */}
             </ul>
 
-            <div style={{display:'flex', marginLeft:'10px'}}>
+            <div style={{ display: 'flex', marginLeft: '10px' }}>
                 <ul className="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
                     <li className="nav-item">
-                        <a href="javascript:void(0)" style={{cursor:'default'}} className="nav-link">
-                            {t('languages')}: 
+                        <a href="javascript:void(0)" style={{ cursor: 'default' }} className="nav-link">
+                            {t('languages')}:
                         </a>
                     </li>
                 </ul>
 
                 <div className="language-selector">
-                    <button onClick={() => changeLg('en', 'nameEN','descriptionEN')} className="language-flag">
+                    <button onClick={() => changeLg('en', 'nameEN', 'descriptionEN')} className="language-flag">
                         <img
                             src="images/langs/en.png"
                             alt="English"
@@ -57,7 +57,7 @@ function Nav() {
                             height="15"
                         />
                     </button>
-                    <button onClick={() => changeLg('fr', 'nameFR','descriptionFR')} className="language-flag">
+                    <button onClick={() => changeLg('fr', 'nameFR', 'descriptionFR')} className="language-flag">
                         <img
                             src="images/langs/fr.png"
                             alt="French"
@@ -65,7 +65,7 @@ function Nav() {
                             height="15"
                         />
                     </button>
-                    <button onClick={() => changeLg('ch', 'nameCH','descriptionCH')} className="language-flag">
+                    <button onClick={() => changeLg('ch', 'nameCH', 'descriptionCH')} className="language-flag">
                         <img
                             src="images/langs/cn.png"
                             alt="Chinese"

@@ -5,8 +5,9 @@ import Footer from './Footer';
 import { useTranslation } from "react-i18next";
 
 function Home() {
+  const domain = "http://localhost:5081";
   // const domain = "http://localhost:8000";
-  const domain = "https://mak.ct.ws";
+  // const domain = "https://mak.ct.ws";
 
   const { t } = useTranslation();
 
@@ -40,7 +41,7 @@ function Home() {
     if (cartItems.length > 0) {
       const ids = cartItems.map(item => item.id);
 
-      fetch(domain + '/cart?ids=' + ids.join(','))
+      fetch(domain + '/cart/z?ids=' + ids.join(','))
         .then(response => response.json())
         .then(data => {
           const updatedCart = data.rows.map(product => {
