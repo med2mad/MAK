@@ -28,9 +28,11 @@ function StatusDropdown({ currentStatus, orderId, onStatusChange }) {
     setIsUpdating(true);
 
     try {
-      const response = await fetch(`http://localhost:5081/orders/${orderId}/status`, {
-        // const response = await fetch(`http://localhost:8000/orders/${orderId}/status`, {
-        // const response = await fetch(`https://mak.ct.ws/orders/${orderId}/status`, {
+      const _UrlPort = `http://localhost:5081/orders/${orderId}/status`;
+      // const _UrlPort = `http://localhost:8000/orders/${orderId}/status`;
+      // const _UrlPort = `https://mak.ct.ws/orders/${orderId}/status`;
+
+      const response = await fetch(_UrlPort, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

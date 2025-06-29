@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react';
 import Nav from './Nav';
 import Products from './Products';
 import Footer from './Footer';
+import LanguageSelector from './LanguageSelector';
 import { useTranslation } from "react-i18next";
 
 function Home() {
-  const domain = "http://localhost:5081";
-  // const domain = "http://localhost:8000";
-  // const domain = "https://mak.ct.ws";
+  const _UrlPort = "http://localhost:5081";
+  // const _UrlPort = "http://localhost:8000";
+  // const _UrlPort = "https://mak.ct.ws";
 
   const { t } = useTranslation();
 
@@ -22,7 +23,7 @@ function Home() {
   const [products, setProducts] = useState([]);
   useEffect(() => {
 
-    fetch(domain, {
+    fetch(_UrlPort, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
     })
@@ -41,7 +42,7 @@ function Home() {
     if (cartItems.length > 0) {
       const ids = cartItems.map(item => item.id);
 
-      fetch(domain + '/cart/z?ids=' + ids.join(','))
+      fetch(_UrlPort + '/cart/z?ids=' + ids.join(','))
         .then(response => response.json())
         .then(data => {
           const updatedCart = data.rows.map(product => {
@@ -109,7 +110,7 @@ function Home() {
       ).toFixed(2)
     };
 
-    fetch(domain + '/orders', {
+    fetch(_UrlPort + '/orders', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -124,7 +125,7 @@ function Home() {
         return response.json();
       })
       .then(data => {
-        alert(t('orderSubmitted'));
+        alert('🎉 OK');
         setCartItems([]);
         setCustomerInfo({
           name: '',
@@ -139,6 +140,15 @@ function Home() {
         alert(t('orderError'));
       });
   };
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return (
     <>
@@ -317,6 +327,7 @@ function Home() {
 
             <div className="col-sm-8 col-lg-4 d-flex justify-content-end gap-5 align-items-center mt-4 mt-sm-0 justify-content-center justify-content-sm-end">
               <ul className="d-flex justify-content-end list-unstyled m-0">
+                {/* Only show cart icon on mobile */}
                 <li className="d-lg-none">
                   <a href="#" className="rounded-circle bg-light p-2 mx-1" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
                     <svg width="24" height="24" viewBox="0 0 24 24"><use xlinkHref="#cart"></use></svg>
@@ -334,6 +345,8 @@ function Home() {
                   </span>
                 </button>
               </div>
+              {/* Show LanguageSelector on mobile instead of hamburger */}
+              {isMobile && <LanguageSelector />}
             </div>
           </div>
         </div>
@@ -341,11 +354,13 @@ function Home() {
           <div className="row">
             <div className="d-flex justify-content-center justify-content-sm-between align-items-center">
               <nav className="main-menu d-flex navbar navbar-expand-lg">
-                <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-                  aria-controls="offcanvasNavbar">
-                  <span className="navbar-toggler-icon"></span>
-                </button>
-
+                {/* Only show hamburger on desktop */}
+                {!isMobile && (
+                  <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                    aria-controls="offcanvasNavbar">
+                    <span className="navbar-toggler-icon"></span>
+                  </button>
+                )}
                 <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                   <div className="offcanvas-header justify-content-center">
                     <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -360,58 +375,66 @@ function Home() {
         </div>
       </header>
 
-      <section style={{ backgroundImage: "url('images/background-pattern.jpg')", backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="banner-blocks">
-                <div className="banner-ad large bg-info block-1">
-                  <div className="swiper main-swiper">
-                    <div className="swiper-wrapper">
-                      <div className="swiper-slide">
-                        <div className="row banner-content p-5">
-                          <div className="content-wrapper col-md-7">
-                            <div className="categories my-3">{t('natural')}</div>
-                            <h3 className="display-4">{t('discoverArganOil')}</h3>
-                            <p>{t('arganOilDescription')}</p>
-                            <a href="#shopid" className="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1 px-4 py-3 mt-3">{t('shopNow')}</a>
-                          </div>
-                          <div className="img-wrapper col-md-5">
-                            <img src="images/product-thumb-1.png" style={{ width: '550px !important', maxWidth: 'none' }} className="img-fluid" />
+      {isMobile && (
+        <div style={{ textAlign: 'center' }} >
+          <img src="images/2.jpg" alt="banner" style={{ width: '95%', borderRadius: '25px' }} />
+        </div>
+      )}
+      {/* Hide top banners on mobile */}
+      {!isMobile && (
+        <section style={{ backgroundImage: "url('images/background-pattern.jpg')", backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-md-12">
+                <div className="banner-blocks">
+                  <div className="banner-ad large bg-info block-1">
+                    <div className="swiper main-swiper">
+                      <div className="swiper-wrapper">
+                        <div className="swiper-slide">
+                          <div className="row banner-content p-5">
+                            <div className="content-wrapper col-md-7">
+                              <div className="categories my-3">{t('natural')}</div>
+                              <h3 className="display-4">{t('discoverArganOil')}</h3>
+                              <p>{t('arganOilDescription')}</p>
+                              <a href="#shopid" className="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1 px-4 py-3 mt-3">{t('shopNow')}</a>
+                            </div>
+                            <div className="img-wrapper col-md-5">
+                              <img src="images/product-thumb-1.png" style={{ width: '550px !important', maxWidth: 'none' }} className="img-fluid" />
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="swiper-pagination"></div>
-                  </div>
-                </div>
-
-                <div className="banner-ad bg-success-subtle block-2" style={{ background: "url('images/ad-image-1.png') no-repeat", backgroundPosition: 'right bottom' }}>
-                  <div className="row banner-content p-5">
-                    <div className="content-wrapper col-md-7">
-                      <div className="categories sale mb-3 pb-3">15% off</div>
-                      <h3 className="banner-title">{t('foodAndBeauty')}</h3>
-                      <a href="#shopid" className="d-flex align-items-center nav-link">{t('shopCollection')} <svg width="24" height="24"><use xlinkHref="#arrow-down"></use></svg></a>
+                      <div className="swiper-pagination"></div>
                     </div>
                   </div>
-                </div>
 
-                <div className="banner-ad bg-danger block-3" style={{ background: "url('images/ad-image-2.png') no-repeat", backgroundPosition: 'right bottom' }}>
-                  <div className="row banner-content p-5">
-                    <div className="content-wrapper col-md-7">
-                      <div className="categories sale mb-3 pb-3">10% off</div>
-                      <h3 className="item-title">{t('bakedCleanProducts')}</h3>
-                      <a href="#shopid" className="d-flex align-items-center nav-link">{t('shopCollection')} <svg width="24" height="24"><use xlinkHref="#arrow-down"></use></svg></a>
+                  <div className="banner-ad bg-success-subtle block-2" style={{ background: "url('images/ad-image-1.png') no-repeat", backgroundPosition: 'right bottom' }}>
+                    <div className="row banner-content p-5">
+                      <div className="content-wrapper col-md-7">
+                        <div className="categories sale mb-3 pb-3">15% off</div>
+                        <h3 className="banner-title">{t('foodAndBeauty')}</h3>
+                        <a href="#shopid" className="d-flex align-items-center nav-link">{t('shopCollection')} <svg width="24" height="24"><use xlinkHref="#arrow-down"></use></svg></a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="banner-ad bg-danger block-3" style={{ background: "url('images/ad-image-2.png') no-repeat", backgroundPosition: 'right bottom' }}>
+                    <div className="row banner-content p-5">
+                      <div className="content-wrapper col-md-7">
+                        <div className="categories sale mb-3 pb-3">10% off</div>
+                        <h3 className="item-title">{t('bakedCleanProducts')}</h3>
+                        <a href="#shopid" className="d-flex align-items-center nav-link">{t('shopCollection')} <svg width="24" height="24"><use xlinkHref="#arrow-down"></use></svg></a>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      <section className="py-5">
+      <section className={isMobile ? "" : "py-5"}>
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-12">
@@ -432,33 +455,36 @@ function Home() {
         </div>
       </section>
 
-      <section className="py-5">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-6">
-              <div className="banner-ad bg-danger mb-3" style={{ background: "url('images/ad-image-3.png')", backgroundRepeat: 'no-repeat', backgroundPosition: 'right' }}>
-                <div className="banner-content p-5">
-                  <div className="categories text-primary fs-3 fw-bold">{t('upto25Off')}</div>
-                  <h3 className="banner-title">{t('honey')}</h3>
-                  <p>{t('honeyDescription')}</p>
-                  <a href="#shopid" className="btn btn-dark text-uppercase">{t('showNow')}</a>
+      {/* Hide the two image sections on mobile */}
+      {!isMobile && (
+        <section className="py-5">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-md-6">
+                <div className="banner-ad bg-danger mb-3" style={{ background: "url('images/ad-image-3.png')", backgroundRepeat: 'no-repeat', backgroundPosition: 'right' }}>
+                  <div className="banner-content p-5">
+                    <div className="categories text-primary fs-3 fw-bold">{t('upto25Off')}</div>
+                    <h3 className="banner-title">{t('honey')}</h3>
+                    <p>{t('honeyDescription')}</p>
+                    <a href="#shopid" className="btn btn-dark text-uppercase">{t('showNow')}</a>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="col-md-6">
-              <div className="banner-ad bg-info" style={{ background: "url('images/ad-image-4.png')", backgroundRepeat: 'no-repeat', backgroundPosition: 'right' }}>
-                <div className="banner-content p-5">
-                  <div className="categories text-primary fs-3 fw-bold">{t('upto25Off')}</div>
-                  <h3 className="banner-title">{t('organic100')}</h3>
-                  <p>{t('organicDescription')}</p>
-                  <a href="#shopid" className="btn btn-dark text-uppercase">{t('showNow')}</a>
+              <div className="col-md-6">
+                <div className="banner-ad bg-info" style={{ background: "url('images/ad-image-4.png')", backgroundRepeat: 'no-repeat', backgroundPosition: 'right' }}>
+                  <div className="banner-content p-5">
+                    <div className="categories text-primary fs-3 fw-bold">{t('upto25Off')}</div>
+                    <h3 className="banner-title">{t('organic100')}</h3>
+                    <p>{t('organicDescription')}</p>
+                    <a href="#shopid" className="btn btn-dark text-uppercase">{t('showNow')}</a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <section id="latest-blog" className="py-5">
         <div className="container-fluid">
@@ -471,7 +497,7 @@ function Home() {
             <div className="col-md-4">
               <article className="post-item card border-0 shadow-sm p-3">
                 <div className="image-holder zoom-effect">
-                  <a href="#">
+                  <a href="javascript:void(0)">
                     <img src="images/posts/2.jpg" alt="post" className="card-img-top" />
                   </a>
                 </div>
@@ -481,7 +507,7 @@ function Home() {
                   </div>
                   <div className="post-header">
                     <h3 className="post-title">
-                      <a href="#" className="text-decoration-none">{t('aboutMe')}</a>
+                      <a href="javascript:void(0)" className="text-decoration-none">{t('aboutMe')}</a>
                     </h3>
                     <p>{t('aboutMeContent')}</p>
                   </div>
@@ -491,7 +517,7 @@ function Home() {
             <div className="col-md-4">
               <article className="post-item card border-0 shadow-sm p-3">
                 <div className="image-holder zoom-effect">
-                  <a href="#">
+                  <a href="#javascript:void(0)">
                     <img src="images/posts/3.jpg" alt="post" className="card-img-top" />
                   </a>
                 </div>
@@ -501,7 +527,7 @@ function Home() {
                   </div>
                   <div className="post-header">
                     <h3 className="post-title">
-                      <a href="#" className="text-decoration-none">{t('moroccanJourney')}</a>
+                      <a href="javascript:void(0)" className="text-decoration-none">{t('moroccanJourney')}</a>
                     </h3>
                     <p>{t('moroccanJourneyContent')}</p>
                   </div>
@@ -511,7 +537,7 @@ function Home() {
             <div className="col-md-4">
               <article className="post-item card border-0 shadow-sm p-3">
                 <div className="image-holder zoom-effect">
-                  <a href="#">
+                  <a href="javascript:void(0)">
                     <img src="images/posts/1.jpg" alt="post" className="card-img-top" />
                   </a>
                 </div>
@@ -521,7 +547,7 @@ function Home() {
                   </div>
                   <div className="post-header">
                     <h3 className="post-title">
-                      <a href="#" className="text-decoration-none">{t('professionalIdentity')}</a>
+                      <a href="javascript:void(0)" className="text-decoration-none">{t('professionalIdentity')}</a>
                     </h3>
                     <p>{t('professionalIdentityContent')}</p>
                   </div>
@@ -532,7 +558,8 @@ function Home() {
         </div>
       </section>
 
-      <Footer />
+      {/* Hide Footer on mobile */}
+      {!isMobile && <Footer />}
     </>
   );
 }

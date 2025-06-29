@@ -57,9 +57,10 @@ function OrdersDashboard() {
   const handleDeleteOrder = async (orderId) => {
     if (window.confirm('Delete this order?')) {
       try {
-        const response = await fetch(`http://localhost:5081/orders/${orderId}`, { method: 'DELETE' });
-        // const response = await fetch(`http://localhost:8000/orders/${orderId}`, { method: 'DELETE' });
-        // const response = await fetch(`https://mak.ct.ws/orders/${orderId}`, { method: 'DELETE' });
+        const _UrlPort = `http://localhost:5081/orders/${orderId}`;
+        // const _UrlPort = `http://localhost:8000/orders/${orderId}`;
+        // const _UrlPort = `https://mak.ct.ws/orders/${orderId}`;
+        const response = await fetch(_UrlPort, { method: 'DELETE' });
         if (!response.ok) throw new Error('Delete failed');
         setOrders(orders.filter(order => order.id !== orderId));
         alert('Order deleted successfully');
@@ -74,9 +75,10 @@ function OrdersDashboard() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch('http://localhost:5081/orders');
-        // const response = await fetch('http://localhost:8000/orders');
-        // const response = await fetch('https://mak.ct.ws/orders');
+        const _UrlPort = 'http://localhost:5081/orders';
+        // const _UrlPort = 'http://localhost:8000/orders';
+        // const _UrlPort = 'https://mak.ct.ws/orders';
+        const response = await fetch(_UrlPort);
         if (!response.ok) {
           throw new Error('Failed to fetch orders');
         }

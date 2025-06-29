@@ -10,14 +10,14 @@ function OrderDetail() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const domain = "http://localhost:5081";
-  // const domain = "http://localhost:8000";
-  // const domain = "https://mak.ct.ws";
+  const _UrlPort = "http://localhost:5081";
+  // const _UrlPort = "http://localhost:8000";
+  // const _UrlPort = "https://mak.ct.ws";
 
   const handleDelete = async () => {
     if (window.confirm('Delete this order?')) {
       try {
-        const response = await fetch(`${domain}/orders/${order.id}`, { method: 'DELETE' });
+        const response = await fetch(`${_UrlPort}/orders/${order.id}`, { method: 'DELETE' });
         if (!response.ok) throw new Error('Delete failed');
         alert('Order deleted successfully');
         navigate('/dashboard/orders');
@@ -31,7 +31,7 @@ function OrderDetail() {
   useEffect(() => {
     const fetchOrder = async () => {
       try {
-        const response = await fetch(`${domain}/orders/${id}`);
+        const response = await fetch(`${_UrlPort}/orders/${id}`);
         if (!response.ok) {
           throw new Error('Failed to fetch order');
         }

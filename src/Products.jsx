@@ -1,8 +1,17 @@
 import { useTranslation } from "react-i18next";
 import './App.css';
+import { useState, useEffect } from 'react';
 
 function Products({ products, onAddToCart, setProducts }) {
   const { t } = useTranslation();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const updateProductQuantity = (id, newQuantity) => {
     setProducts(prev =>
@@ -34,42 +43,45 @@ function Products({ products, onAddToCart, setProducts }) {
               <div style={{ minHeight: '65px', fontStyle: 'italic' }}>{product[localStorage.getItem('description') || 'descriptionEN']}</div>
               <div className="price">{product.price} DH</div>
               <div className="product-actions">
-                <div className="input-group product-qty">
-                  <span className="input-group-btn">
-                    <button
-                      type="button"
-                      className="quantity-left-minus btn btn-danger btn-number"
-                      onClick={() => {
-                        const newQuantity = Math.max(1, product.quantity - 1);
-                        updateProductQuantity(product.id, newQuantity);
+                {/* Hide quantity selection on mobile */}
+                {!isMobile && (
+                  <div className="input-group product-qty">
+                    <span className="input-group-btn">
+                      <button
+                        type="button"
+                        className="quantity-left-minus btn btn-danger btn-number"
+                        onClick={() => {
+                          const newQuantity = Math.max(1, product.quantity - 1);
+                          updateProductQuantity(product.id, newQuantity);
+                        }}
+                      >
+                        <svg width="16" height="16" style={{ color: "red" }}><use xlinkHref="#minus"></use></svg>
+                      </button>
+                    </span>
+                    <input
+                      type="text"
+                      id={`quantity-${product.id}`}
+                      name="quantity"
+                      className="form-control input-number"
+                      value={product.quantity}
+                      onChange={(e) => {
+                        const value = parseInt(e.target.value) || 1;
+                        updateProductQuantity(product.id, value);
                       }}
-                    >
-                      <svg width="16" height="16" style={{ color: "red" }}><use xlinkHref="#minus"></use></svg>
-                    </button>
-                  </span>
-                  <input
-                    type="text"
-                    id={`quantity-${product.id}`}
-                    name="quantity"
-                    className="form-control input-number"
-                    value={product.quantity}
-                    onChange={(e) => {
-                      const value = parseInt(e.target.value) || 1;
-                      updateProductQuantity(product.id, value);
-                    }}
-                  />
-                  <span className="input-group-btn">
-                    <button
-                      type="button"
-                      className="quantity-right-plus btn btn-success btn-number"
-                      onClick={() => {
-                        updateProductQuantity(product.id, product.quantity + 1);
-                      }}
-                    >
-                      <svg width="16" height="16" style={{ color: "green" }}><use xlinkHref="#plus"></use></svg>
-                    </button>
-                  </span>
-                </div>
+                    />
+                    <span className="input-group-btn">
+                      <button
+                        type="button"
+                        className="quantity-right-plus btn btn-success btn-number"
+                        onClick={() => {
+                          updateProductQuantity(product.id, product.quantity + 1);
+                        }}
+                      >
+                        <svg width="16" height="16" style={{ color: "green" }}><use xlinkHref="#plus"></use></svg>
+                      </button>
+                    </span>
+                  </div>
+                )}
                 <div>
                   <button
                     onClick={() => onAddToCart(product.id, product.quantity)}
