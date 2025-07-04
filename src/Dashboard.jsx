@@ -57,9 +57,11 @@ function OrdersDashboard() {
   const handleDeleteOrder = async (orderId) => {
     if (window.confirm('Delete this order?')) {
       try {
-        const _UrlPort = `http://localhost:5081/orders/${orderId}`;
+        // const _UrlPort = `http://localhost:5081/orders/${orderId}`;
         // const _UrlPort = `http://localhost:8000/orders/${orderId}`;
         // const _UrlPort = `https://mak.ct.ws/orders/${orderId}`;
+        const _UrlPort = "http://ayaloli-001-site1.ntempurl.com/orders/${orderId}";
+
         const response = await fetch(_UrlPort, { method: 'DELETE' });
         if (!response.ok) throw new Error('Delete failed');
         setOrders(orders.filter(order => order.id !== orderId));
@@ -75,9 +77,11 @@ function OrdersDashboard() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const _UrlPort = 'http://localhost:5081/orders';
+        // const _UrlPort = 'http://localhost:5081/orders';
         // const _UrlPort = 'http://localhost:8000/orders';
         // const _UrlPort = 'https://mak.ct.ws/orders';
+        const _UrlPort = "http://ayaloli-001-site1.ntempurl.com/orders";
+
         const response = await fetch(_UrlPort);
         if (!response.ok) {
           throw new Error('Failed to fetch orders');

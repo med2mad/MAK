@@ -10,9 +10,10 @@ function OrderDetail() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const _UrlPort = "http://localhost:5081";
+  // const _UrlPort = "http://localhost:5081";
   // const _UrlPort = "http://localhost:8000";
   // const _UrlPort = "https://mak.ct.ws";
+  const _UrlPort = "http://ayaloli-001-site1.ntempurl.com";
 
   const handleDelete = async () => {
     if (window.confirm('Delete this order?')) {

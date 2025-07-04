@@ -6,9 +6,10 @@ import LanguageSelector from './LanguageSelector';
 import { useTranslation } from "react-i18next";
 
 function Home() {
-  const _UrlPort = "http://localhost:5081";
+  // const _UrlPort = "http://localhost:5081";
   // const _UrlPort = "http://localhost:8000";
   // const _UrlPort = "https://mak.ct.ws";
+  const _UrlPort = "http://ayaloli-001-site1.ntempurl.com";
 
   const { t } = useTranslation();
 
@@ -375,12 +376,12 @@ function Home() {
         </div>
       </header>
 
+      {/* top banners */}
       {isMobile && (
         <div style={{ textAlign: 'center' }} >
-          <img src="images/2.jpg" alt="banner" style={{ width: '95%', borderRadius: '25px' }} />
+          <img src={t('mobileBanner')} alt="banner" style={{ width: '95%', boxShadow: '2px 1px 1px' }} />
         </div>
       )}
-      {/* Hide top banners on mobile */}
       {!isMobile && (
         <section style={{ backgroundImage: "url('images/background-pattern.jpg')", backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
           <div className="container-fluid">
