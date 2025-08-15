@@ -4,13 +4,6 @@ import Products from './Products';
 import Footer from './Footer';
 import LanguageSelector from './LanguageSelector';
 import { useTranslation } from "react-i18next";
-// Add Supabase client import
-import { createClient } from '@supabase/supabase-js';
-
-// Initialize Supabase client
-const supabaseUrl = 'https://aatwgdcszboghcwmcwws.supabase.co';
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFhdHdnZGNzemJvZ2hjd21jd3dzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIyOTk4MzEsImV4cCI6MjA2Nzg3NTgzMX0.8oOluztLm2_OS0OqIYzBOwgitMNZ1nYESd21N2I2Sq0';
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 function Home() {
   const _UrlPort = "http://localhost:5081";
@@ -30,8 +23,6 @@ function Home() {
 
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    // .NET fetch (commented out)
-    /*
     fetch(_UrlPort, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
@@ -40,18 +31,6 @@ function Home() {
       .then(data => {
         setProducts(data.rows.map(product => ({ ...product, quantity: 1 })));
       })
-    */
-
-    // Supabase fetch
-    const fetchProducts = async () => {
-      let { data, error } = await supabase
-        .from('products')
-        .select('*');
-      if (!error && data) {
-        setProducts(data.map(product => ({ ...product, quantity: 1 })));
-      }
-    };
-    fetchProducts();
   }, []);
 
   const [cartItems, setCartItems] = useState([]);
@@ -60,8 +39,6 @@ function Home() {
     if (cartItems.length > 0) {
       const ids = cartItems.map(item => item.id);
 
-      // .NET fetch (commented out)
-      /*
       fetch(_UrlPort + '/cart/z?ids=' + ids.join(','))
         .then(response => response.json())
         .then(data => {
@@ -71,23 +48,6 @@ function Home() {
           });
           setCartItems(updatedCart);
         });
-      */
-
-      // Supabase fetch
-      const fetchCartProducts = async () => {
-        let { data, error } = await supabase
-          .from('products')
-          .select('*')
-          .in('id', ids);
-        if (!error && data) {
-          const updatedCart = data.map(product => {
-            const cartItem = cartItems.find(item => item.id === product.id);
-            return { ...product, quantity: cartItem ? cartItem.quantity : 1 };
-          });
-          setCartItems(updatedCart);
-        }
-      };
-      fetchCartProducts();
     } else {
       setCartItems([]);
     }
@@ -130,7 +90,7 @@ function Home() {
     }));
   };
 
-  const submitOrder = async () => {
+  const submitOrder = () => {
     if (!customerInfo.name || !customerInfo.phone) {
       alert(t('fillRequiredFields'));
       return;
@@ -147,8 +107,6 @@ function Home() {
       ).toFixed(2)
     };
 
-    // .NET fetch (commented out)
-    /*
     fetch(_UrlPort + '/orders', {
       method: 'POST',
       headers: {
@@ -178,27 +136,6 @@ function Home() {
         console.error('Error:', error);
         alert(t('orderError'));
       });
-    */
-
-    // Supabase insert
-    try {
-      const { data, error } = await supabase
-        .from('orders')
-        .insert([orderData]);
-      if (error) throw error;
-      alert('🎉 OK');
-      setCartItems([]);
-      setCustomerInfo({
-        name: '',
-        email: '',
-        phone: '',
-        address: '',
-        coupon_code: ''
-      });
-    } catch (error) {
-      console.error('Error:', error);
-      alert(t('orderError'));
-    }
   };
 
   const [isMobile, setIsMobile] = useState(false);
